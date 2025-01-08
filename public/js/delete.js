@@ -1,7 +1,8 @@
 const errorContainer = document.getElementById("error-container");
 const deleteButton = document.getElementById("delete-button");
-const articleId = new URLSearchParams(window.location.search).get("id"); // Récupérer l'ID de l'article à supprimer (via l'URL)
+const articleId = new URLSearchParams(window.location.search).get("id"); // Récupérer l'ID de l'article via l'URL
 
+// Afficher un message d'erreur
 function showError(message) {
   errorContainer.classList.remove("d-none");
   errorContainer.classList.add("alert", "alert-danger");
@@ -15,27 +16,34 @@ function showError(message) {
   }, 5000);
 }
 
-// Supprimer l'article
+// Fonction pour supprimer l'article
 function deleteArticle() {
   if (!articleId) {
     showError("L'ID de l'article est manquant.");
     return;
   }
 
-  fetch(`URL_DE_VOTRE_API/${articleId}`, {
+  fetch(`/api/articles/${articleId}`, {
     method: "DELETE",
   })
-    .then((response) => response.json())
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Échec de la suppression.");
+      }
+      return response.json();
+    })
     .then((data) => {
       console.log("Article supprimé :", data);
       // Rediriger vers la liste des articles après suppression
       window.location.href = "news.html";
     })
     .catch((error) => {
+      console.error(error);
       showError("Une erreur est survenue lors de la suppression.");
     });
 }
 
+// Ajouter un écouteur d'événement au bouton de suppression
 deleteButton.addEventListener("click", (e) => {
   e.preventDefault();
 

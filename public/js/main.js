@@ -1,71 +1,66 @@
+// Quand le DOM est chargé
+document.addEventListener("DOMContentLoaded", () => {
+  const newsContainer = document.getElementById("news-container");
 
-async function fetchLatestNews() {
-  try {
-    const response = await fetch("/api/news");
-    const data = await response.json();
-    displayNews(data.posts); 
-  } catch (error) {
-    console.error("Erreur:", error);
-    showError("Impossible de charger les articles");
-  }
-}
+  // Exemple de données d'articles
+  const articles = [
+    {
+      title: "Découverte scientifique révolutionnaire",
+      content:
+        "Une nouvelle étude révèle des informations fascinantes sur l'univers.",
+      author: "Jean Dupont",
+      date: "2025-01-08",
+    },
+    {
+      title: "Les tendances technologiques en 2025",
+      content: "Les experts discutent des innovations à venir cette année.",
+      author: "Sophie Martin",
+      date: "2025-01-07",
+    },
+    {
+      title: "Santé : Les bienfaits d'une alimentation équilibrée",
+      content:
+        "Des conseils pour améliorer votre mode de vie grâce à une nutrition saine.",
+      author: "Dr. Paul Morel",
+      date: "2025-01-06",
+    },
+    {
+      title: "Sports : Une victoire historique",
+      content:
+        "L'équipe locale remporte le championnat après une performance exceptionnelle.",
+      author: "Emma Bernard",
+      date: "2025-01-05",
+    },
+  ];
 
-// TODO: Compléter la fonction displayNews avec interface Yahoo-like et animations
-function displayNews(news) {
-  const container = document.getElementById("news-container");
-  container.innerHTML = ""; 
+  // Fonction pour afficher les articles
+  const renderArticles = () => {
+    // Vider le conteneur avant de le remplir
+    newsContainer.innerHTML = "";
 
-  if (!news || news.length === 0) {
-    showError("Aucun article disponible pour le moment.");
-    return;
-  }
+    articles.forEach((article) => {
+      // Création d'une colonne pour chaque article
+      const col = document.createElement("div");
+      col.className = "col-md-6";
 
-  news.forEach((article) => {
-    const card = document.createElement("div");
-    card.className = "col-md-4";
-    card.setAttribute("data-aos", "fade-up"); 
+      // Contenu HTML de chaque article
+      col.innerHTML = `
+        <div class="card h-100">
+          <div class="card-body">
+            <h5 class="card-title">${article.title}</h5>
+            <p class="card-text">${article.content}</p>
+          </div>
+          <div class="card-footer text-muted">
+            <small>Par ${article.author} | Publié le ${article.date}</small>
+          </div>
+        </div>
+      `;
 
-    card.innerHTML = `
-            <div class="card h-100">
-                <img src="${
-                  article.image || "/images/default.jpg"
-                }" class="card-img-top" alt="${article.title}">
-                <div class="card-body d-flex flex-column">
-                    <h5 class="card-title text-primary">${article.title}</h5>
-                    <p class="card-text">${article.body.slice(0, 100)}...</p>
-                    <a href="#" class="btn btn-link mt-auto text-primary">Lire la suite</a>
-                </div>
-            </div>
-        `;
+      // Ajout de l'article dans le conteneur
+      newsContainer.appendChild(col);
+    });
+  };
 
-    container.appendChild(card);
-  });
-}
-
-// TODO: Fonction pour gérer les erreurs
-function showError(message) {
-  let errorContainer = document.getElementById("error-container");
-  if (!errorContainer) {
-    errorContainer = document.createElement("div");
-    errorContainer.id = "error-container";
-    errorContainer.className = "alert alert-danger alert-dismissible fade show";
-    errorContainer.style.position = "fixed";
-    errorContainer.style.top = "20px";
-    errorContainer.style.right = "20px";
-    errorContainer.style.zIndex = "1050"; 
-    document.body.appendChild(errorContainer);
-  }
-
-  errorContainer.innerHTML = `
-      <span>${message}</span>
-      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-  `;
-
-  setTimeout(() => {
-    if (errorContainer) {
-      errorContainer.remove();
-    }
-  }, 5000);
-}
-
-document.addEventListener("DOMContentLoaded", fetchLatestNews);
+  // Appeler la fonction pour afficher les articles au chargement de la page
+  renderArticles();
+});

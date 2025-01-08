@@ -29,13 +29,13 @@
               <a class="nav-link" href="news.html">Articles</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="create.html">Créer</a>
+              <a class="nav-link active" href="create.html">Créer</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="edit.html">Editer</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" href="delete.html">Supprimer</a>
+              <a class="nav-link" href="delete.html">Supprimer</a>
             </li>
           </ul>
         </div>
@@ -64,6 +64,16 @@
             placeholder="Entrez le contenu de l'article"
             required
           ></textarea>
+        </div>
+        <div class="mb-3">
+          <label for="image" class="form-label">Image</label>
+          <input
+            type="file"
+            id="image"
+            class="form-control"
+            accept="image/*"
+            required
+          />
         </div>
         <button type="submit" class="btn btn-primary">Créer</button>
       </form>
