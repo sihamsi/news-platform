@@ -16,10 +16,9 @@
       href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
-    <!-- Barre de navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
       <div class="container">
         <a class="navbar-brand" href="index.html">News App</a>
@@ -34,40 +33,39 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link active" href="news.html">Articles</a>
+              <a class="nav-link" href="news.html">Articles</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="create.html">Créer</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="edit.html">Editer</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="delete.html">Supprimer</a>
             </li>
           </ul>
         </div>
       </div>
     </nav>
-
-    <!-- Section des articles -->
     <main class="container mt-5">
       <h1 class="text-primary mb-4">Les Derniers Articles</h1>
-      <div id="news-container" class="row g-4">
-        <!-- Les articles dynamiques seront affichés ici -->
-      </div>
+      <div id="news-container" class="row g-4"></div>
     </main>
 
-    <!-- Pied de page -->
     <footer class="bg-light text-center text-muted py-3 mt-5">
       <small>© 2025 News App. Tous droits réservés.</small>
     </footer>
 
-    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
     <script>
-      // Initialiser AOS
       AOS.init({
         duration: 1000,
         easing: "ease-in-out",
         once: true,
       });
     </script>
-    <script src="/js/main.js"></script>
+    <script src="js/main.js"></script>
   </body>
 </html>
