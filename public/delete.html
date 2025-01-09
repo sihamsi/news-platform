@@ -50,12 +50,19 @@
 
     <!-- Contenu principal -->
     <main class="container mt-5">
-      <h1 class="text-danger mb-4">Supprimer un article</h1>
+      <h1 class="text-primary mb-4">Supprimer un article</h1>
       <div id="error-container" class="d-none"></div>
-      <p>
-        Êtes-vous sûr de vouloir supprimer l'article avec l'ID :
-        <span id="article-id-display"></span> ?
-      </p>
+      <div class="mb-3">
+        <label for="article-title" class="form-label">Titre de l'article</label>
+        <input
+          type="text"
+          id="article-title"
+          class="form-control"
+          placeholder="Titre de l'article"
+        />
+      </div>
+
+      <p>Êtes-vous sûr de vouloir supprimer cet article ?</p>
       <button id="delete-button" class="btn btn-danger">Supprimer</button>
       <a href="news.html" class="btn btn-secondary">Annuler</a>
     </main>

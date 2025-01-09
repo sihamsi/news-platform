@@ -17,10 +17,11 @@ function showError(message) {
 form.addEventListener("submit", (e) => {
   e.preventDefault();
 
+  // Récupérer les valeurs des champs
   const title = document.getElementById("title").value.trim();
   const content = document.getElementById("content").value.trim();
-  const image = document.getElementById("image").files[0];
 
+  // Validation des champs
   if (!title) {
     showError("Le titre est requis.");
     return;
@@ -31,28 +32,16 @@ form.addEventListener("submit", (e) => {
     return;
   }
 
-  if (!image) {
-    showError("L'image est requise.");
-    return;
-  }
-
-  const reader = new FileReader();
-
-  reader.onload = function () {
-    const articleData = {
-      title,
-      content,
-      image: reader.result, // Convert image to base64 string for storage
-    };
-
-    // Save to localStorage
-    const existingArticles = JSON.parse(localStorage.getItem("articles")) || [];
-    existingArticles.push(articleData);
-    localStorage.setItem("articles", JSON.stringify(existingArticles));
-
-    alert("Article créé avec succès!");
-    window.location.href = "news.html"; // Redirect to the articles page
+  // Sauvegarde de l'article dans le localStorage
+  const articleData = {
+    title,
+    content,
   };
 
-  reader.readAsDataURL(image);
+  const existingArticles = JSON.parse(localStorage.getItem("articles")) || [];
+  existingArticles.push(articleData);
+  localStorage.setItem("articles", JSON.stringify(existingArticles));
+
+  alert("Article créé avec succès !");
+  window.location.href = "news.html"; // Rediriger vers la page des articles
 });

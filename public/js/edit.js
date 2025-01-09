@@ -1,7 +1,8 @@
 const form = document.getElementById("news-form");
 const errorContainer = document.getElementById("error-container");
-const articleId = new URLSearchParams(window.location.search).get("id"); // Récupérer l'ID de l'article à modifier (via l'URL)
+const articleId = new URLSearchParams(window.location.search).get("id");
 
+// Affiche un message d'erreur
 function showError(message) {
   errorContainer.classList.remove("d-none");
   errorContainer.classList.add("alert", "alert-danger");
@@ -15,20 +16,33 @@ function showError(message) {
   }, 5000);
 }
 
+// Charge les données de l'article à modifier
 function loadArticleData() {
-  fetch(`URL_DE_VOTRE_API/${articleId}`)
-    .then((response) => response.json())
+  if (!articleId) {
+    showError("Aucun ID d'article spécifié dans l'URL.");
+    return;
+  }
+
+  fetch(`http://localhost:3000/articles/${articleId}`)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Erreur dans la récupération des données.");
+      }
+      return response.json();
+    })
     .then((data) => {
       if (data) {
-        document.getElementById("title").value = data.title;
-        document.getElementById("content").value = data.content;
+        document.getElementById("title").value = data.title || "";
+        document.getElementById("content").value = data.content || "";
       }
     })
-    .catch(() => {
+    .catch((error) => {
+      console.error(error);
       showError("Impossible de récupérer les données de l'article.");
     });
 }
 
+// Met à jour l'article
 form.addEventListener("submit", (e) => {
   e.preventDefault();
   const title = document.getElementById("title").value.trim();
@@ -49,24 +63,31 @@ form.addEventListener("submit", (e) => {
     content,
   };
 
-  fetch(`URL_DE_VOTRE_API/${articleId}`, {
+  fetch(`http://localhost:3000/articles/${articleId}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(articleData),
   })
-    .then((response) => response.json())
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Erreur lors de la mise à jour de l'article.");
+      }
+      return response.json();
+    })
     .then((data) => {
-      console.log("Article mis à jour :", data);
-      form.reset();
-      errorContainer.classList.add("d-none");
+      console.log("Article mis à jour avec succès :", data);
+      alert("Article mis à jour !");
+      window.location.href = "news.html";
     })
     .catch((error) => {
+      console.error(error);
       showError("Une erreur est survenue lors de la mise à jour.");
     });
 });
 
+// Charger les données au chargement de la page
 if (articleId) {
   loadArticleData();
 }

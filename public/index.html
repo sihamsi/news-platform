@@ -12,9 +12,9 @@
   </head>
   <body>
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <nav class="navbar navbar-expand-lg navbar-dark">
       <div class="container">
-        <a class="navbar-brand active" href="index.html">News App</a>
+        <a class="navbar-brand" href="index.html">News App</a>
         <button
           class="navbar-toggler"
           type="button"
@@ -43,15 +43,27 @@
     </nav>
 
     <!-- Main Content -->
-    <main class="container mt-4">
-      <h1 class="mb-4">Bienvenue sur News App</h1>
+    <main class="container mt-5 main-content">
+      <h1>Bienvenue sur News App</h1>
       <p>Consultez les dernières actualités ou créez vos propres articles.</p>
 
       <!-- Latest News Section -->
-      <section id="latest-news" class="mt-4">
+      <section id="latest-news">
         <h2>Derniers Articles</h2>
-        <div id="news-container" class="row gy-3">
+        <div id="news-container" class="row gy-4">
           <!-- Les articles seront affichés ici -->
+          <div class="col-md-4 news-item">
+            <h3>Article 1</h3>
+            <p>Extrait de l'article 1...</p>
+          </div>
+          <div class="col-md-4 news-item">
+            <h3>Article 2</h3>
+            <p>Extrait de l'article 2...</p>
+          </div>
+          <div class="col-md-4 news-item">
+            <h3>Article 3</h3>
+            <p>Extrait de l'article 3...</p>
+          </div>
         </div>
       </section>
     </main>
